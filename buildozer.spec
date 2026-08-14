@@ -1,30 +1,59 @@
-name: Build Football Trivia APK
+[app]
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# App name
+title = Football Trivia
 
-jobs:
-  build:
-    name: Build Android APK
-    runs-on: ubuntu-latest
+# Package name
+package.name = footballtrivia
 
-    steps:
-      - name: Get source code
-        uses: actions/checkout@v4
+# Package domain
+package.domain = org.footballtrivia
 
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          workdir: .
-          buildozer_version: stable
-          command: buildozer android debug
+# Source directory
+source.dir = .
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Football-Trivia-APK
-          path: ${{ steps.buildozer.outputs.filename }}
+# Files to include
+source.include_exts = py,png,jpg,jpeg,kv,atlas,mp3,wav
+
+# Version
+version = 1.0
+
+# Requirements
+requirements = python3,kivy
+
+# Screen orientation
+orientation = portrait
+
+# Don't show a splash screen
+presplash.filename =
+
+# Application icon
+icon.filename =
+
+# Android settings
+fullscreen = 0
+
+# Android API
+android.api = 35
+android.minapi = 24
+
+# Android architecture
+android.archs = arm64-v8a
+
+# Permissions
+android.permissions = INTERNET
+
+# Accept Android SDK licenses
+android.accept_sdk_license = True
+
+# Python optimization
+python.optimize = 1
+
+android.accept_sdk_license = True
+[buildozer]
+
+# Log level
+log_level = 2
+
+# Warning level
+warn_on_root = 1
