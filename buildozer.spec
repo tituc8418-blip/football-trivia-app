@@ -56,3 +56,4 @@ log_level = 2
 
 # Warning level
 warn_on_root = 1
+android.accept_sdk_license = True
