@@ -44,7 +44,6 @@ android.archs = arm64-v8a
 android.permissions = INTERNET
 
 # Accept Android SDK licenses
-android.accept_sdk_license = True
 
 # Python optimization
 python.optimize = 1
