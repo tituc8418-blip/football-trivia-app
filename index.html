@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#087f5b">
-<meta name="description" content="Football Trivia - Test your football knowledge">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
 <title>Football Trivia</title>
 
 <style>
@@ -17,426 +18,626 @@ body{
     margin:0;
     font-family:Arial,Helvetica,sans-serif;
     background:
-      linear-gradient(rgba(0,60,45,.82),rgba(0,35,25,.90)),
-      radial-gradient(circle at top,#15956e,#003b2b 70%);
+        linear-gradient(rgba(0,45,30,.86),rgba(0,20,15,.94)),
+        radial-gradient(circle at top,#159957,#003c2b);
     color:white;
     min-height:100vh;
 }
 
-.app{
+.container{
     width:100%;
-    max-width:520px;
+    max-width:600px;
     margin:auto;
-    min-height:100vh;
     padding:18px;
 }
 
-.header{
-    text-align:center;
-    padding:12px 5px 20px;
+.screen{
+    display:none;
 }
 
-.ball{
-    font-size:58px;
-    animation:float 2s infinite ease-in-out;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-8px)}
-}
-
-.logo{
-    font-size:34px;
-    font-weight:900;
-    letter-spacing:1px;
-    margin:4px 0;
-}
-
-.subtitle{
-    opacity:.9;
-    font-size:15px;
+.screen.active{
+    display:block;
 }
 
 .card{
     background:rgba(255,255,255,.10);
-    border:1px solid rgba(255,255,255,.20);
+    border:1px solid rgba(255,255,255,.18);
     border-radius:24px;
-    padding:20px;
-    margin-bottom:16px;
-    box-shadow:0 10px 30px rgba(0,0,0,.22);
-    backdrop-filter:blur(8px);
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    margin:12px auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:58px;
+    background:linear-gradient(135deg,#ffd600,#ff9800);
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+}
+
+h1{
+    text-align:center;
+    font-size:38px;
+    margin:10px 0 5px;
 }
 
 h2{
-    margin-top:0;
     text-align:center;
+    margin-top:8px;
 }
 
-button,input,select{
-    font:inherit;
+.subtitle{
+    text-align:center;
+    opacity:.85;
+    font-size:16px;
+    margin-bottom:20px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:15px;
+    margin:7px 0;
+    border:none;
+    border-radius:14px;
+    font-size:16px;
+    outline:none;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
 button{
     width:100%;
-    border:0;
-    border-radius:15px;
     padding:15px;
-    margin:7px 0;
+    border:0;
+    border-radius:14px;
+    font-size:17px;
     font-weight:bold;
+    margin:7px 0;
     cursor:pointer;
-    transition:.15s;
-}
-
-button:active{
-    transform:scale(.97);
 }
 
 .primary{
-    background:#ffd21c;
-    color:#163c2f;
+    background:linear-gradient(135deg,#ffd600,#ff9800);
+    color:#162000;
 }
 
 .secondary{
-    background:white;
-    color:#064d3b;
+    background:rgba(255,255,255,.92);
+    color:#063c2d;
 }
 
 .dark{
-    background:#063f31;
+    background:rgba(0,0,0,.28);
     color:white;
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.18);
 }
 
-input,select{
-    width:100%;
-    padding:15px;
-    margin:7px 0 12px;
-    border:0;
-    border-radius:13px;
-    background:white;
-    color:#123;
-    outline:none;
+.news{
+    background:linear-gradient(135deg,#e53935,#ff7043);
+    color:white;
 }
 
-label{
-    display:block;
-    margin-top:8px;
+.music{
+    background:linear-gradient(135deg,#8e2de2,#4a00e0);
+    color:white;
+}
+
+.admin{
+    background:linear-gradient(135deg,#1565c0,#42a5f5);
+    color:white;
+}
+
+.small{
+    font-size:13px;
+    opacity:.75;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.badge{
+    background:#ffd600;
+    color:#162000;
+    padding:7px 12px;
+    border-radius:20px;
     font-weight:bold;
 }
 
-.hidden{
-    display:none!important;
+.progress{
+    height:10px;
+    background:rgba(255,255,255,.2);
+    border-radius:20px;
+    overflow:hidden;
+    margin:12px 0 20px;
 }
 
-.home-buttons{
-    margin-top:18px;
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#ffd600;
+    transition:.3s;
 }
 
-.small-row{
-    display:flex;
-    gap:8px;
+.question{
+    font-size:22px;
+    font-weight:bold;
+    line-height:1.35;
+    margin:15px 0 20px;
 }
 
-.small-row button{
-    flex:1;
+.answer{
+    background:rgba(255,255,255,.95);
+    color:#123;
+    text-align:left;
+    font-weight:normal;
 }
 
-.question-count{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:7px;
+.answer.correct{
+    background:#20c463;
+    color:white;
 }
 
-.count-btn{
-    background:white;
-    color:#07513e;
-    padding:12px 5px;
+.answer.wrong{
+    background:#e53935;
+    color:white;
 }
 
-.count-btn.selected{
-    background:#ffd21c;
-    color:#173c31;
+.answer.disabled{
+    pointer-events:none;
 }
 
-.levels{
+.feedback{
+    display:none;
+    background:rgba(0,0,0,.3);
+    padding:15px;
+    border-radius:15px;
+    margin-top:12px;
+}
+
+.feedback.show{
+    display:block;
+}
+
+.correctText{
+    color:#69ff9c;
+    font-weight:bold;
+}
+
+.wrongText{
+    color:#ff8a80;
+    font-weight:bold;
+}
+
+.option-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
 }
 
-.level-btn{
-    background:white;
-    color:#07513e;
+.option-grid button{
+    margin:0;
 }
 
-.level-btn.selected{
-    background:#ffcf18;
-    color:#163c2f;
-}
-
-.question-box{
-    background:white;
-    color:#142;
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:15px;
-}
-
-.question{
-    font-size:20px;
-    font-weight:800;
-    line-height:1.35;
+.center{
     text-align:center;
-}
-
-.progress{
-    height:8px;
-    background:rgba(255,255,255,.25);
-    border-radius:20px;
-    overflow:hidden;
-    margin:12px 0 18px;
-}
-
-.progress-bar{
-    height:100%;
-    background:#ffd21c;
-    width:0%;
-}
-
-.answers button{
-    background:white;
-    color:#073f31;
-    text-align:left;
-    border:3px solid transparent;
-}
-
-.answers button.correct{
-    background:#a8f5bd;
-    border-color:#1c9b49;
-}
-
-.answers button.wrong{
-    background:#ffb2b2;
-    border-color:#d52d2d;
-}
-
-.answers button:disabled{
-    opacity:1;
-}
-
-.feedback{
-    background:rgba(255,255,255,.12);
-    border-radius:15px;
-    padding:15px;
-    margin-top:12px;
-}
-
-.feedback strong{
-    font-size:18px;
 }
 
 .score{
+    font-size:55px;
+    font-weight:bold;
+    color:#ffd600;
     text-align:center;
-    font-size:48px;
-    font-weight:900;
-    color:#ffd21c;
 }
 
-.search-result{
-    background:white;
-    color:#123;
-    border-radius:15px;
-    padding:15px;
-    margin-top:12px;
-}
-
-.news{
-    text-align:center;
+.newsbox{
+    background:rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:16px;
+    margin-top:15px;
 }
 
 .footer{
     text-align:center;
-    opacity:.7;
+    opacity:.65;
     font-size:12px;
-    padding:20px 0;
+    margin:25px 0;
 }
 
-.badge{
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    background:#ffd21c;
-    color:#173c31;
-    font-size:12px;
-    font-weight:bold;
+.hidden{
+    display:none !important;
 }
 
-@media(max-width:360px){
-    .logo{font-size:28px}
-    .question{font-size:18px}
+@media(max-width:400px){
+    h1{
+        font-size:31px;
+    }
+
+    .question{
+        font-size:19px;
+    }
+
+    button{
+        font-size:15px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-<header class="header">
-    <div class="ball">⚽</div>
-    <div class="logo">FOOTBALL TRIVIA</div>
-    <div class="subtitle">Know your ball • Test your football knowledge</div>
-</header>
+<!-- ================= HOME ================= -->
 
-<!-- HOME -->
-<section id="homeScreen" class="card">
-    <h2>🏆 Welcome to Football Trivia</h2>
-
-    <p style="text-align:center">
-        How much do you really know about football?
-    </p>
-
-    <div class="home-buttons">
-        <button class="primary" onclick="showQuizSetup()">⚽ KICK OFF</button>
-        <button class="secondary" onclick="showSearch()">🔎 SEARCH QUESTIONS</button>
-        <button class="dark" onclick="showNews()">📰 FOOTBALL NEWS</button>
-        <button class="dark" onclick="toggleMusic()">🎵 MUSIC: <span id="musicStatus">OFF</span></button>
-    </div>
-</section>
-
-<!-- QUIZ SETUP -->
-<section id="setupScreen" class="card hidden">
-
-    <h2>⚽ Set Up Your Quiz</h2>
-
-    <label>Your name</label>
-    <input id="playerName" type="text" placeholder="Enter your name">
-
-    <label>Choose level</label>
-
-    <div class="levels">
-        <button class="level-btn selected" data-level="all"
-                onclick="chooseLevel(this,'all')">🌍 All</button>
-
-        <button class="level-btn" data-level="easy"
-                onclick="chooseLevel(this,'easy')">🟢 Easy</button>
-
-        <button class="level-btn" data-level="medium"
-                onclick="chooseLevel(this,'medium')">🟡 Medium</button>
-
-        <button class="level-btn" data-level="hard"
-                onclick="chooseLevel(this,'hard')">🔴 Hard</button>
-    </div>
-
-    <label>Number of questions</label>
-
-    <div class="question-count">
-        <button class="count-btn selected" onclick="chooseCount(this,5)">5</button>
-        <button class="count-btn" onclick="chooseCount(this,10)">10</button>
-        <button class="count-btn" onclick="chooseCount(this,15)">15</button>
-        <button class="count-btn" onclick="chooseCount(this,20)">20</button>
-    </div>
-
-    <button class="primary" onclick="startQuiz()">🚀 START QUIZ</button>
-    <button class="dark" onclick="goHome()">← BACK</button>
-</section>
-
-<!-- QUIZ -->
-<section id="quizScreen" class="hidden">
+<div id="homeScreen" class="screen active">
 
     <div class="card">
-        <div style="display:flex;justify-content:space-between">
-            <span id="questionNumber">Question 1</span>
-            <span id="scoreDisplay">Score: 0</span>
+
+        <div class="logo">⚽</div>
+
+        <h1>FOOTBALL TRIVIA</h1>
+
+        <p class="subtitle">
+            Test your football knowledge 🏆
+        </p>
+
+        <button class="primary" onclick="showScreen('setupScreen')">
+            ⚽ KICK OFF
+        </button>
+
+        <button class="secondary" onclick="showScreen('searchScreen')">
+            🔎 SEARCH QUESTIONS
+        </button>
+
+        <button class="admin" onclick="openAdmin()">
+            🔐 MAKER / ADMIN
+        </button>
+
+        <button class="dark" onclick="openMultiplayer()">
+            👥 MULTIPLAYER
+        </button>
+
+        <button class="music" onclick="toggleMusic()">
+            🎵 MUSIC: <span id="musicStatus">ON</span>
+        </button>
+
+        <button class="news" onclick="openNews()">
+            📰 FOOTBALL NEWS
+        </button>
+
+    </div>
+
+    <div class="card center">
+        <b>🏆 Challenge yourself</b>
+        <p class="small">
+            Choose your level, choose your questions
+            and see how much football you really know.
+        </p>
+    </div>
+
+</div>
+
+
+<!-- ================= SETUP ================= -->
+
+<div id="setupScreen" class="screen">
+
+    <div class="card">
+
+        <h2>⚽ Start Quiz</h2>
+
+        <label>Your name</label>
+
+        <input
+            id="playerName"
+            type="text"
+            placeholder="Enter your name">
+
+        <label>Difficulty</label>
+
+        <select id="difficulty">
+            <option value="all">All Levels</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <label>Number of questions</label>
+
+        <select id="questionCount">
+            <option value="5">5 Questions</option>
+            <option value="10">10 Questions</option>
+            <option value="15">15 Questions</option>
+            <option value="20">20 Questions</option>
+        </select>
+
+        <button class="primary" onclick="startQuiz()">
+            🚀 START PLAYING
+        </button>
+
+        <button class="dark" onclick="showScreen('homeScreen')">
+            ← BACK
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= QUIZ ================= -->
+
+<div id="quizScreen" class="screen">
+
+    <div class="card">
+
+        <div class="topbar">
+
+            <span id="questionNumber">
+                Question 1
+            </span>
+
+            <span class="badge">
+                Score: <span id="score">0</span>
+            </span>
+
         </div>
 
         <div class="progress">
-            <div id="progressBar" class="progress-bar"></div>
+            <div
+                id="progressBar"
+                class="progress-bar">
+            </div>
         </div>
 
-        <div class="question-box">
-            <div id="questionText" class="question"></div>
+        <div id="questionText" class="question">
+            Question
         </div>
 
-        <div id="answers" class="answers"></div>
+        <div id="answers"></div>
 
-        <div id="feedback" class="feedback hidden"></div>
+        <div id="feedback" class="feedback">
 
-        <button id="nextBtn" class="primary hidden" onclick="nextQuestion()">
-            ➡️ CONTINUE
+            <div id="feedbackTitle"></div>
+
+            <p id="feedbackDescription"></p>
+
+        </div>
+
+        <button
+            id="nextButton"
+            class="primary hidden"
+            onclick="nextQuestion()">
+            CONTINUE →
         </button>
+
     </div>
 
-</section>
+</div>
 
-<!-- RESULT -->
-<section id="resultScreen" class="card hidden">
 
-    <h2>🏆 QUIZ COMPLETE!</h2>
+<!-- ================= RESULTS ================= -->
 
-    <p id="resultMessage" style="text-align:center"></p>
+<div id="resultScreen" class="screen">
 
-    <div id="finalScore" class="score">0/0</div>
+    <div class="card center">
 
-    <p id="resultComment" style="text-align:center"></p>
+        <h2>🏆 QUIZ FINISHED!</h2>
 
-    <button class="primary" onclick="showQuizSetup()">🔄 PLAY AGAIN</button>
-    <button class="secondary" onclick="goHome()">🏠 HOME</button>
-</section>
+        <p id="resultName"></p>
 
-<!-- SEARCH -->
-<section id="searchScreen" class="card hidden">
+        <div id="finalScore" class="score">
+            0
+        </div>
 
-    <h2>🔎 Search Football Questions</h2>
+        <p id="resultMessage"></p>
 
-    <input id="searchInput"
-           type="search"
-           placeholder="Example: Who won the 2018 World Cup?"
-           oninput="searchQuestions()">
+        <button class="primary" onclick="showScreen('setupScreen')">
+            🔄 PLAY AGAIN
+        </button>
 
-    <div id="searchResults"></div>
+        <button class="dark" onclick="showScreen('homeScreen')">
+            🏠 HOME
+        </button>
 
-    <button class="dark" onclick="goHome()">← BACK</button>
-</section>
+    </div>
 
-<!-- NEWS -->
-<section id="newsScreen" class="card hidden">
+</div>
 
-    <h2>📰 Football News</h2>
 
-    <div class="news">
-        <p>Get the latest football news online.</p>
+<!-- ================= SEARCH ================= -->
+
+<div id="searchScreen" class="screen">
+
+    <div class="card">
+
+        <h2>🔎 Search Football Questions</h2>
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Example: Who won the 2018 World Cup?">
+
+        <button class="primary" onclick="searchQuestion()">
+            SEARCH
+        </button>
+
+        <div id="searchResult"></div>
+
+        <button class="dark" onclick="showScreen('homeScreen')">
+            ← BACK
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ADMIN ================= -->
+
+<div id="adminLoginScreen" class="screen">
+
+    <div class="card">
+
+        <h2>🔐 Maker / Admin</h2>
+
+        <p class="small">
+            Only the app maker should use this section.
+        </p>
+
+        <input
+            id="adminPassword"
+            type="password"
+            placeholder="Admin password">
+
+        <button class="admin" onclick="loginAdmin()">
+            LOGIN
+        </button>
+
+        <button class="dark" onclick="showScreen('homeScreen')">
+            ← BACK
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ADMIN PANEL ================= -->
+
+<div id="adminScreen" class="screen">
+
+    <div class="card">
+
+        <h2>⚙️ Maker Panel</h2>
+
+        <p class="small">
+            Add your own football questions.
+        </p>
+
+        <input
+            id="newQuestion"
+            placeholder="Question">
+
+        <input
+            id="option1"
+            placeholder="Option 1">
+
+        <input
+            id="option2"
+            placeholder="Option 2">
+
+        <input
+            id="option3"
+            placeholder="Option 3">
+
+        <input
+            id="option4"
+            placeholder="Option 4">
+
+        <select id="correctAnswer">
+            <option value="0">Correct answer: Option 1</option>
+            <option value="1">Correct answer: Option 2</option>
+            <option value="2">Correct answer: Option 3</option>
+            <option value="3">Correct answer: Option 4</option>
+        </select>
+
+        <select id="newDifficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <textarea
+            id="newDescription"
+            placeholder="Short explanation of the answer"></textarea>
+
+        <button class="primary" onclick="addQuestion()">
+            ➕ ADD QUESTION
+        </button>
+
+        <button class="dark" onclick="clearCustomQuestions()">
+            🗑️ DELETE MY ADDED QUESTIONS
+        </button>
+
+        <button class="dark" onclick="showScreen('homeScreen')">
+            ← HOME
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= MULTIPLAYER ================= -->
+
+<div id="multiplayerScreen" class="screen">
+
+    <div class="card center">
+
+        <h2>👥 MULTIPLAYER</h2>
+
+        <p>
+            Multiplayer mode is prepared for
+            online/hotspot play.
+        </p>
+
+        <div class="newsbox">
+            <b>Coming next:</b>
+            <p class="small">
+                Players will be able to connect using
+                the same hotspot/network and compete
+                with each other.
+            </p>
+        </div>
 
         <button class="primary"
-                onclick="openNews('https://www.bbc.com/sport/football')">
-            📰 BBC FOOTBALL
+                onclick="showScreen('setupScreen')">
+            PLAY SINGLE PLAYER
         </button>
 
-        <button class="secondary"
-                onclick="openNews('https://www.espn.com/soccer/')">
-            ⚽ ESPN SOCCER
+        <button class="dark"
+                onclick="showScreen('homeScreen')">
+            ← HOME
         </button>
 
-        <button class="secondary"
-                onclick="openNews('https://www.skysports.com/football')">
-            🏟️ SKY SPORTS FOOTBALL
-        </button>
     </div>
 
-    <button class="dark" onclick="goHome()">← BACK</button>
-</section>
+</div>
+
 
 <div class="footer">
-    ⚽ Football Trivia<br>
-    Football knowledge never dies.
+    ⚽ Football Trivia • Test your football knowledge
 </div>
 
 </div>
 
-<audio id="music" loop>
-    <source src="football_music.mp3" type="audio/mpeg">
+
+<!-- MUSIC -->
+
+<audio
+    id="backgroundMusic"
+    loop
+    preload="auto">
+
+    <source src="football_music.mp3"
+            type="audio/mpeg">
+
 </audio>
+
 
 <script>
 
@@ -444,352 +645,315 @@ label{
    FOOTBALL QUESTIONS
    ========================================================= */
 
-const questions = [
+const defaultQuestions = [
 
 {
-q:"Which country won the 2018 FIFA World Cup?",
-options:["France","Brazil","Germany","Argentina"],
-answer:"France",
-level:"easy",
-info:"France defeated Croatia 4–2 in the 2018 World Cup final."
+question:"Which country won the 2018 FIFA World Cup?",
+options:["Brazil","France","Germany","Argentina"],
+answer:1,
+difficulty:"easy",
+description:"France defeated Croatia 4–2 in the 2018 World Cup final."
 },
 
 {
-q:"Which country won the 2022 FIFA World Cup?",
-options:["France","Argentina","Brazil","Portugal"],
-answer:"Argentina",
-level:"easy",
-info:"Argentina defeated France on penalties after a 3–3 draw."
+question:"Who has won the most Ballon d'Or awards?",
+options:["Cristiano Ronaldo","Lionel Messi","Zinedine Zidane","Ronaldinho"],
+answer:1,
+difficulty:"easy",
+description:"Lionel Messi has won the Ballon d'Or more times than any other player."
 },
 
 {
-q:"How many players does one football team normally have on the pitch?",
+question:"Which club is known as The Red Devils?",
+options:["Liverpool","Chelsea","Manchester United","Arsenal"],
+answer:2,
+difficulty:"easy",
+description:"Manchester United are widely known as the Red Devils."
+},
+
+{
+question:"How many players does one football team normally have on the pitch?",
 options:["9","10","11","12"],
-answer:"11",
-level:"easy",
-info:"A standard football team has 11 players on the pitch."
+answer:2,
+difficulty:"easy",
+description:"A normal football team has 11 players on the pitch."
 },
 
 {
-q:"Which player is famous for the nickname CR7?",
-options:["Lionel Messi","Cristiano Ronaldo","Neymar","Kylian Mbappe"],
-answer:"Cristiano Ronaldo",
-level:"easy",
-info:"Cristiano Ronaldo is widely known as CR7."
+question:"Which country won the 2022 FIFA World Cup?",
+options:["France","Brazil","Argentina","Spain"],
+answer:2,
+difficulty:"easy",
+description:"Argentina defeated France on penalties in the 2022 final."
 },
 
 {
-q:"Which club plays its home matches at Camp Nou?",
-options:["Real Madrid","Barcelona","Atletico Madrid","Sevilla"],
-answer:"Barcelona",
-level:"easy",
-info:"FC Barcelona has historically played its home matches at Camp Nou."
+question:"Who is famous for the 'Siuuu' celebration?",
+options:["Neymar","Cristiano Ronaldo","Mbappe","Haaland"],
+answer:1,
+difficulty:"easy",
+description:"Cristiano Ronaldo is famous for his 'Siuuu' celebration."
 },
 
 {
-q:"Which country has won the most FIFA World Cups?",
-options:["Germany","Brazil","Italy","Argentina"],
-answer:"Brazil",
-level:"medium",
-info:"Brazil has won the FIFA World Cup five times."
+question:"Which club plays at Anfield?",
+options:["Manchester City","Liverpool","Arsenal","Chelsea"],
+answer:1,
+difficulty:"easy",
+description:"Liverpool play their home matches at Anfield."
 },
 
 {
-q:"Who scored the famous 'Hand of God' goal?",
-options:["Pele","Diego Maradona","Zinedine Zidane","Ronaldinho"],
-answer:"Diego Maradona",
-level:"medium",
-info:"Maradona scored the famous goal against England at the 1986 World Cup."
+question:"Which country is Lionel Messi from?",
+options:["Brazil","Spain","Argentina","Portugal"],
+answer:2,
+difficulty:"easy",
+description:"Lionel Messi was born in Argentina."
 },
 
 {
-q:"Which club is known as the Red Devils?",
-options:["Liverpool","Manchester City","Manchester United","Arsenal"],
-answer:"Manchester United",
-level:"easy",
-info:"Manchester United are commonly known as the Red Devils."
+question:"Which country is Cristiano Ronaldo from?",
+options:["Spain","Brazil","Portugal","Italy"],
+answer:2,
+difficulty:"easy",
+description:"Cristiano Ronaldo was born in Portugal."
 },
 
 {
-q:"Which country hosted the 2010 FIFA World Cup?",
-options:["Brazil","South Africa","Russia","Germany"],
-answer:"South Africa",
-level:"easy",
-info:"South Africa hosted the 2010 FIFA World Cup."
+question:"What color card means a player is sent off?",
+options:["Blue","Yellow","Green","Red"],
+answer:3,
+difficulty:"easy",
+description:"A red card means the player is sent off."
 },
 
 {
-q:"Who won the 2002 FIFA World Cup?",
-options:["Brazil","Germany","France","Italy"],
-answer:"Brazil",
-level:"medium",
-info:"Brazil defeated Germany 2–0 in the 2002 final."
+question:"Which club is nicknamed The Gunners?",
+options:["Arsenal","Chelsea","Liverpool","Everton"],
+answer:0,
+difficulty:"medium",
+description:"Arsenal are commonly known as The Gunners."
 },
 
 {
-q:"Which club is nicknamed The Gunners?",
-options:["Chelsea","Arsenal","Liverpool","Tottenham"],
-answer:"Arsenal",
-level:"easy",
-info:"Arsenal are commonly known as The Gunners."
+question:"Which club won the 2023 UEFA Champions League?",
+options:["Inter Milan","Manchester City","Real Madrid","Bayern Munich"],
+answer:1,
+difficulty:"medium",
+description:"Manchester City won their first Champions League title in 2023."
 },
 
 {
-q:"Which player won the 2018 Ballon d'Or?",
-options:["Lionel Messi","Cristiano Ronaldo","Luka Modric","Neymar"],
-answer:"Luka Modric",
-level:"medium",
-info:"Luka Modric won the 2018 Ballon d'Or."
+question:"Who scored the famous 'Hand of God' goal?",
+options:["Diego Maradona","Pele","Messi","Ronaldo"],
+answer:0,
+difficulty:"medium",
+description:"Diego Maradona scored the famous Hand of God goal against England in 1986."
 },
 
 {
-q:"Which country won Euro 2020?",
-options:["England","Italy","Spain","France"],
-answer:"Italy",
-level:"medium",
-info:"Italy defeated England on penalties in the Euro 2020 final."
+question:"Which nation has won the most FIFA World Cups?",
+options:["Germany","Argentina","Brazil","Italy"],
+answer:2,
+difficulty:"medium",
+description:"Brazil have won the FIFA World Cup five times."
 },
 
 {
-q:"Which team won the 2019 UEFA Champions League?",
-options:["Liverpool","Tottenham","Barcelona","Ajax"],
-answer:"Liverpool",
-level:"medium",
-info:"Liverpool defeated Tottenham 2–0 in the 2019 final."
+question:"Which club has won the most UEFA Champions League titles?",
+options:["Barcelona","Liverpool","Real Madrid","AC Milan"],
+answer:2,
+difficulty:"medium",
+description:"Real Madrid have won the European Cup/Champions League more times than any other club."
 },
 
 {
-q:"Which African country reached the 2022 World Cup semi-final?",
-options:["Ghana","Senegal","Morocco","Cameroon"],
-answer:"Morocco",
-level:"hard",
-info:"Morocco became the first African team to reach a FIFA World Cup semi-final."
+question:"Which player is known as 'The King of Football'?",
+options:["Pele","Messi","Cruyff","Ronaldo"],
+answer:0,
+difficulty:"easy",
+description:"Pele is widely regarded as one of football's greatest players."
 },
 
 {
-q:"Which player scored the fastest hat-trick in Premier League history?",
-options:["Sadio Mane","Mohamed Salah","Erling Haaland","Thierry Henry"],
-answer:"Sadio Mane",
-level:"hard",
-info:"Sadio Mane scored three goals in 2 minutes and 56 seconds for Southampton."
+question:"Which stadium is the home of Barcelona?",
+options:["Bernabeu","Camp Nou","Old Trafford","San Siro"],
+answer:1,
+difficulty:"easy",
+description:"Barcelona's famous home stadium is Camp Nou."
 },
 
 {
-q:"Which club won the first European Cup?",
-options:["Real Madrid","AC Milan","Liverpool","Barcelona"],
-answer:"Real Madrid",
-level:"hard",
-info:"Real Madrid won the inaugural European Cup in 1956."
+question:"Which club plays at Santiago Bernabeu?",
+options:["Atletico Madrid","Barcelona","Real Madrid","Sevilla"],
+answer:2,
+difficulty:"easy",
+description:"Real Madrid play at the Santiago Bernabeu."
 },
 
 {
-q:"Which player has won the most Ballon d'Or awards?",
-options:["Cristiano Ronaldo","Lionel Messi","Michel Platini","Johan Cruyff"],
-answer:"Lionel Messi",
-level:"hard",
-info:"Lionel Messi has won the Ballon d'Or more times than any other player."
+question:"Which country hosted the 2022 World Cup?",
+options:["Russia","Qatar","Brazil","Germany"],
+answer:1,
+difficulty:"easy",
+description:"Qatar hosted the 2022 FIFA World Cup."
 },
 
 {
-q:"Which nation won the first FIFA World Cup in 1930?",
-options:["Brazil","Argentina","Uruguay","Italy"],
-answer:"Uruguay",
-level:"hard",
-info:"Uruguay won the inaugural FIFA World Cup in 1930."
+question:"Which player won the 2022 World Cup Golden Ball?",
+options:["Kylian Mbappe","Lionel Messi","Neymar","Luka Modric"],
+answer:1,
+difficulty:"medium",
+description:"Lionel Messi won the Golden Ball as the tournament's best player."
 },
 
 {
-q:"Which goalkeeper won the 1963 Ballon d'Or?",
-options:["Gianluigi Buffon","Lev Yashin","Manuel Neuer","Iker Casillas"],
-answer:"Lev Yashin",
-level:"hard",
-info:"Lev Yashin remains the only goalkeeper to have won the Ballon d'Or."
+question:"Which African country reached the 2022 World Cup semi-final?",
+options:["Egypt","Ghana","Morocco","Nigeria"],
+answer:2,
+difficulty:"medium",
+description:"Morocco became the first African nation to reach a World Cup semi-final."
 },
 
 {
-q:"Which country won the 1966 FIFA World Cup?",
-options:["England","Germany","Brazil","Italy"],
-answer:"England",
-level:"medium",
-info:"England won the 1966 World Cup on home soil."
+question:"Which country won AFCON 2023?",
+options:["Nigeria","Senegal","Egypt","Ivory Coast"],
+answer:3,
+difficulty:"medium",
+description:"Ivory Coast won the 2023 Africa Cup of Nations."
 },
 
 {
-q:"Which club is nicknamed The Blues?",
-options:["Chelsea","Arsenal","Liverpool","Everton"],
-answer:"Chelsea",
-level:"easy",
-info:"Chelsea are commonly known as the Blues."
-},
-
-{
-q:"Which club is nicknamed The Citizens?",
-options:["Manchester United","Manchester City","Arsenal","Chelsea"],
-answer:"Manchester City",
-level:"easy",
-info:"Manchester City are commonly known as the Citizens."
-},
-
-{
-q:"Who is known as the Brazilian football legend who won three World Cups?",
-options:["Pele","Ronaldo Nazario","Ronaldinho","Kaka"],
-answer:"Pele",
-level:"medium",
-info:"Pele won three World Cups with Brazil in 1958, 1962 and 1970."
-},
-
-{
-q:"Which club does Lionel Messi famously have a long association with?",
-options:["Barcelona","Juventus","Arsenal","Chelsea"],
-answer:"Barcelona",
-level:"easy",
-info:"Messi spent the majority of his early professional career at Barcelona."
-},
-
-{
-q:"Which competition is contested by European national teams?",
-options:["Copa America","UEFA European Championship","AFCON","Gold Cup"],
-answer:"UEFA European Championship",
-level:"easy",
-info:"The UEFA European Championship is Europe's major national-team tournament."
-},
-
-{
-q:"What is awarded to the winner of the FIFA World Cup?",
-options:["The World Cup Trophy","The Golden Ball","The Golden Boot","The Silver Cup"],
-answer:"The World Cup Trophy",
-level:"easy",
-info:"The champion receives the FIFA World Cup Trophy."
-},
-
-{
-q:"Which player is famous for the nickname 'The Pharaoh'?",
+question:"Who is known as 'The Egyptian King'?",
 options:["Mohamed Salah","Sadio Mane","Riyad Mahrez","Didier Drogba"],
-answer:"Mohamed Salah",
-level:"medium",
-info:"Mohamed Salah is widely known by the nickname The Egyptian King, and is sometimes called The Pharaoh."
+answer:0,
+difficulty:"easy",
+description:"Mohamed Salah is widely known as The Egyptian King."
 },
 
 {
-q:"Which country won AFCON 2023?",
-options:["Nigeria","Senegal","Ivory Coast","Egypt"],
-answer:"Ivory Coast",
-level:"hard",
-info:"Ivory Coast won the Africa Cup of Nations tournament held in 2024."
+question:"Which club did Erling Haaland join in 2022?",
+options:["Liverpool","Manchester City","Chelsea","Barcelona"],
+answer:1,
+difficulty:"medium",
+description:"Erling Haaland joined Manchester City in 2022."
 },
 
 {
-q:"Which position usually wears gloves?",
-options:["Striker","Goalkeeper","Midfielder","Defender"],
-answer:"Goalkeeper",
-level:"easy",
-info:"Goalkeepers commonly wear specialized gloves."
+question:"Which player is nicknamed CR7?",
+options:["Cristiano Ronaldo","Carlos Tevez","Casemiro","Cesc Fabregas"],
+answer:0,
+difficulty:"easy",
+description:"CR7 refers to Cristiano Ronaldo."
 },
 
 {
-q:"How long is a standard football match, excluding added time?",
-options:["80 minutes","90 minutes","100 minutes","120 minutes"],
-answer:"90 minutes",
-level:"easy",
-info:"A standard match consists of two 45-minute halves."
+question:"Which country did Pele represent?",
+options:["Argentina","Portugal","Brazil","France"],
+answer:2,
+difficulty:"easy",
+description:"Pele represented Brazil."
+},
+
+{
+question:"Who scored the fastest Premier League hat-trick?",
+options:["Sadio Mane","Wayne Rooney","Thierry Henry","Alan Shearer"],
+answer:0,
+difficulty:"hard",
+description:"Sadio Mane scored three goals in 2 minutes and 56 seconds for Southampton."
+},
+
+{
+question:"Which club is nicknamed The Blues?",
+options:["Chelsea","Arsenal","Liverpool","Tottenham"],
+answer:0,
+difficulty:"easy",
+description:"Chelsea are commonly called The Blues."
+},
+
+{
+question:"Which player has the nickname 'La Pulga'?",
+options:["Lionel Messi","Neymar","Luis Suarez","Ronaldo"],
+answer:0,
+difficulty:"medium",
+description:"Lionel Messi is famously nicknamed La Pulga, meaning The Flea."
+},
+
+{
+question:"Who won the 2010 FIFA World Cup?",
+options:["Netherlands","Germany","Spain","Brazil"],
+answer:2,
+difficulty:"medium",
+description:"Spain defeated the Netherlands 1–0 in the 2010 final."
+},
+
+{
+question:"Which country won Euro 2024?",
+options:["England","Spain","Germany","France"],
+answer:1,
+difficulty:"medium",
+description:"Spain defeated England 2–1 in the Euro 2024 final."
 }
 
 ];
 
+
 /* =========================================================
-   VARIABLES
+   STORAGE
    ========================================================= */
 
-let selectedLevel="all";
-let selectedCount=5;
+function getCustomQuestions(){
 
-let quizQuestions=[];
-let currentQuestion=0;
-let score=0;
-let answered=false;
+    try{
+        return JSON.parse(
+            localStorage.getItem("footballTriviaQuestions")
+        ) || [];
+    }
 
-let playerName="Player";
+    catch(e){
+        return [];
+    }
+}
+
+function getAllQuestions(){
+
+    return [
+        ...defaultQuestions,
+        ...getCustomQuestions()
+    ];
+}
+
 
 /* =========================================================
    SCREEN CONTROL
    ========================================================= */
 
-function hideAll(){
+function showScreen(id){
 
-    document.getElementById("homeScreen").classList.add("hidden");
-    document.getElementById("setupScreen").classList.add("hidden");
-    document.getElementById("quizScreen").classList.add("hidden");
-    document.getElementById("resultScreen").classList.add("hidden");
-    document.getElementById("searchScreen").classList.add("hidden");
-    document.getElementById("newsScreen").classList.add("hidden");
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+    window.scrollTo(0,0);
 }
 
-function goHome(){
-    hideAll();
-    document.getElementById("homeScreen").classList.remove("hidden");
-}
-
-function showQuizSetup(){
-    hideAll();
-    document.getElementById("setupScreen").classList.remove("hidden");
-}
-
-function showSearch(){
-    hideAll();
-    document.getElementById("searchScreen").classList.remove("hidden");
-    document.getElementById("searchInput").value="";
-    document.getElementById("searchResults").innerHTML=
-        "<p style='text-align:center'>🔎 Type a football question or keyword.</p>";
-}
-
-function showNews(){
-    hideAll();
-    document.getElementById("newsScreen").classList.remove("hidden");
-}
 
 /* =========================================================
-   SETTINGS
+   QUIZ VARIABLES
    ========================================================= */
 
-function chooseLevel(button,level){
+let quizQuestions=[];
+let currentQuestion=0;
+let score=0;
+let player="";
+let answered=false;
 
-    selectedLevel=level;
-
-    document.querySelectorAll(".level-btn").forEach(b=>{
-        b.classList.remove("selected");
-    });
-
-    button.classList.add("selected");
-}
-
-function chooseCount(button,count){
-
-    selectedCount=count;
-
-    document.querySelectorAll(".count-btn").forEach(b=>{
-        b.classList.remove("selected");
-    });
-
-    button.classList.add("selected");
-}
-
-/* =========================================================
-   RANDOMIZE
-   ========================================================= */
-
-function shuffle(array){
-
-    let copy=[...array];
-
-    for(let i=copy.length-1;i>0;i--){
-
-        let j=Math.floor(Math.random()*(i+1));
-
-        [copy[i],copy[j]]=[copy[j],copy[i]];
-    }
-
-    return copy;
-}
 
 /* =========================================================
    START QUIZ
@@ -797,135 +961,188 @@ function shuffle(array){
 
 function startQuiz(){
 
-    playerName=document.getElementById("playerName").value.trim();
+    player =
+        document.getElementById("playerName")
+        .value
+        .trim();
 
-    if(!playerName){
+    if(!player){
+
         alert("Please enter your name first.");
+
         return;
     }
 
-    let available=questions;
+    const level =
+        document.getElementById("difficulty")
+        .value;
 
-    if(selectedLevel!=="all"){
-        available=questions.filter(q=>q.level===selectedLevel);
+    const count =
+        parseInt(
+            document.getElementById("questionCount").value
+        );
+
+    let all = getAllQuestions();
+
+    if(level !== "all"){
+
+        all =
+            all.filter(q =>
+                q.difficulty === level
+            );
     }
 
-    if(available.length===0){
-        alert("There are no questions for this level yet.");
+    if(all.length < count){
+
+        alert(
+            "There are only " +
+            all.length +
+            " questions available for this level. " +
+            "Choose a smaller number or All Levels."
+        );
+
         return;
     }
 
-    quizQuestions=shuffle(available);
+    all.sort(()=>Math.random()-0.5);
 
-    if(selectedCount>quizQuestions.length){
-        selectedCount=quizQuestions.length;
-    }
-
-    quizQuestions=quizQuestions.slice(0,selectedCount);
+    quizQuestions =
+        all.slice(0,count);
 
     currentQuestion=0;
     score=0;
 
-    hideAll();
-    document.getElementById("quizScreen").classList.remove("hidden");
+    document.getElementById("score").textContent=0;
 
-    showQuestion();
+    showScreen("quizScreen");
+
+    loadQuestion();
 }
 
+
 /* =========================================================
-   SHOW QUESTION
+   LOAD QUESTION
    ========================================================= */
 
-function showQuestion(){
+function loadQuestion(){
 
     answered=false;
 
-    let q=quizQuestions[currentQuestion];
+    const q =
+        quizQuestions[currentQuestion];
 
-    document.getElementById("questionNumber").textContent=
-        "Question "+(currentQuestion+1)+" / "+quizQuestions.length;
+    const total =
+        quizQuestions.length;
 
-    document.getElementById("scoreDisplay").textContent=
-        "Score: "+score;
+    document.getElementById("questionNumber")
+        .textContent =
+        "Question " +
+        (currentQuestion+1) +
+        " / " +
+        total;
 
-    document.getElementById("progressBar").style.width=
-        ((currentQuestion)/quizQuestions.length*100)+"%";
+    document.getElementById("questionText")
+        .textContent =
+        q.question;
 
-    document.getElementById("questionText").textContent=q.q;
+    document.getElementById("progressBar")
+        .style.width =
+        ((currentQuestion)/total*100)+"%";
 
-    let answers=document.getElementById("answers");
+    const answers =
+        document.getElementById("answers");
 
     answers.innerHTML="";
 
-    let options=shuffle(q.options);
+    q.options.forEach((option,index)=>{
 
-    options.forEach(option=>{
+        const button =
+            document.createElement("button");
 
-        let button=document.createElement("button");
+        button.className="answer";
 
-        button.textContent=option;
+        button.textContent =
+            String.fromCharCode(65+index) +
+            ". " +
+            option;
 
-        button.onclick=()=>checkAnswer(button,option,q);
+        button.onclick =
+            ()=>checkAnswer(index,button);
 
         answers.appendChild(button);
+
     });
 
-    document.getElementById("feedback").classList.add("hidden");
-    document.getElementById("feedback").innerHTML="";
+    document
+        .getElementById("feedback")
+        .classList.remove("show");
 
-    document.getElementById("nextBtn").classList.add("hidden");
+    document
+        .getElementById("nextButton")
+        .classList.add("hidden");
 }
+
 
 /* =========================================================
    CHECK ANSWER
    ========================================================= */
 
-function checkAnswer(button,choice,q){
+function checkAnswer(selected,button){
 
     if(answered) return;
 
     answered=true;
 
-    let allButtons=document.querySelectorAll("#answers button");
+    const q =
+        quizQuestions[currentQuestion];
 
-    allButtons.forEach(b=>b.disabled=true);
+    const buttons =
+        document
+        .querySelectorAll(".answer");
 
-    let feedback=document.getElementById("feedback");
+    buttons.forEach(b=>{
+        b.classList.add("disabled");
+    });
 
-    feedback.classList.remove("hidden");
-
-    if(choice===q.answer){
+    if(selected === q.answer){
 
         score++;
 
         button.classList.add("correct");
 
-        feedback.innerHTML=
-            "<strong>✅ Correct!</strong><br><br>"+
-            "Answer: <b>"+q.answer+"</b><br><br>"+
-            q.info;
+        document.getElementById("feedbackTitle")
+            .innerHTML =
+            "<span class='correctText'>✅ CORRECT!</span>";
 
-    }else{
+    }
+
+    else{
 
         button.classList.add("wrong");
 
-        allButtons.forEach(b=>{
-            if(b.textContent===q.answer){
-                b.classList.add("correct");
-            }
-        });
+        buttons[q.answer]
+            .classList.add("correct");
 
-        feedback.innerHTML=
-            "<strong>❌ Not quite!</strong><br><br>"+
-            "Correct answer: <b>"+q.answer+"</b><br><br>"+
-            q.info;
+        document.getElementById("feedbackTitle")
+            .innerHTML =
+            "<span class='wrongText'>❌ WRONG!</span>";
     }
 
-    document.getElementById("scoreDisplay").textContent=
-        "Score: "+score;
+    document.getElementById("score")
+        .textContent=score;
 
-    document.getElementById("nextBtn").classList.remove("hidden");
+    document.getElementById("feedbackDescription")
+        .textContent=q.description;
+
+    document
+        .getElementById("feedback")
+        .classList.add("show");
+
+    document
+        .getElementById("nextButton")
+        .classList.remove("hidden");
 }
+
 
 /* =========================================================
    NEXT QUESTION
@@ -935,191 +1152,452 @@ function nextQuestion(){
 
     currentQuestion++;
 
-    if(currentQuestion>=quizQuestions.length){
+    if(currentQuestion >= quizQuestions.length){
 
-        finishQuiz();
+        showResults();
 
-    }else{
+    }
 
-        showQuestion();
+    else{
+
+        loadQuestion();
+
     }
 }
+
 
 /* =========================================================
-   FINISH
+   RESULTS
    ========================================================= */
 
-function finishQuiz(){
+function showResults(){
 
-    hideAll();
+    const total =
+        quizQuestions.length;
 
-    document.getElementById("resultScreen").classList.remove("hidden");
+    const percentage =
+        Math.round((score/total)*100);
 
-    let total=quizQuestions.length;
+    document.getElementById("resultName")
+        .textContent =
+        "Well played, " + player + "!";
 
-    let percentage=Math.round((score/total)*100);
+    document.getElementById("finalScore")
+        .textContent =
+        score + " / " + total;
 
-    document.getElementById("resultMessage").textContent=
-        "Well played, "+playerName+"!";
-
-    document.getElementById("finalScore").textContent=
-        score+" / "+total;
-
-    let comment="";
+    let message="";
 
     if(percentage===100){
-        comment="🏆 PERFECT SCORE! You are a football master!";
-    }
-    else if(percentage>=80){
-        comment="🔥 Excellent! Your football knowledge is impressive!";
-    }
-    else if(percentage>=60){
-        comment="👏 Good job! Keep improving your football knowledge.";
-    }
-    else if(percentage>=40){
-        comment="⚽ Not bad! A little more practice and you'll improve.";
-    }
-    else{
-        comment="💪 Keep playing! Every football expert started somewhere.";
+
+        message =
+        "🔥 PERFECT SCORE! You are a football genius!";
+
     }
 
-    document.getElementById("resultComment").textContent=comment;
+    else if(percentage>=80){
+
+        message =
+        "🏆 Excellent! Your football knowledge is amazing.";
+
+    }
+
+    else if(percentage>=60){
+
+        message =
+        "👏 Very good! Keep improving.";
+
+    }
+
+    else if(percentage>=40){
+
+        message =
+        "⚽ Not bad! More football trivia will help.";
+
+    }
+
+    else{
+
+        message =
+        "💪 Keep playing and become a football expert!";
+
+    }
+
+    document.getElementById("resultMessage")
+        .textContent=message;
+
+    showScreen("resultScreen");
 }
+
 
 /* =========================================================
    SEARCH
    ========================================================= */
 
-function searchQuestions(){
+function searchQuestion(){
 
-    let text=document.getElementById("searchInput").value
-        .toLowerCase()
-        .trim();
+    const text =
+        document.getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
 
-    let result=document.getElementById("searchResults");
+    const result =
+        document.getElementById("searchResult");
 
     if(!text){
 
-        result.innerHTML=
-            "<p style='text-align:center'>🔎 Type something to search.</p>";
+        result.innerHTML =
+            "<p>Please type a question.</p>";
 
         return;
     }
 
-    let found=questions.filter(q=>
-        q.q.toLowerCase().includes(text) ||
-        q.answer.toLowerCase().includes(text)
-    );
+    const questions =
+        getAllQuestions();
 
-    if(found.length===0){
+    const found =
+        questions.find(q =>
+            q.question.toLowerCase().includes(text)
+        );
 
-        result.innerHTML=`
-        <div class="search-result">
-            <strong>❌ Question not found.</strong>
-            <p>This question isn't in the Football Trivia list.</p>
+    if(found){
+
+        result.innerHTML = `
+
+        <div class="newsbox">
+
+            <h3>⚽ Question found</h3>
+
+            <p><b>${escapeHTML(found.question)}</b></p>
+
+            <p>
+                Try answering it yourself first.
+            </p>
+
+            <div class="option-grid">
+
+                ${found.options.map((o,i)=>`
+                    <button
+                        class="answer"
+                        onclick="showSearchAnswer(${i},${found.answer},'${escapeAttribute(found.description)}')">
+                        ${String.fromCharCode(65+i)}.
+                        ${escapeHTML(o)}
+                    </button>
+                `).join("")}
+
+            </div>
+
+            <div id="searchAnswer"></div>
+
+        </div>
+        `;
+
+    }
+
+    else{
+
+        result.innerHTML = `
+
+        <div class="newsbox">
+
+            <h3>🔎 Question not found</h3>
+
+            <p>
+                This question is not currently in
+                your Football Trivia database.
+            </p>
+
             <button class="primary"
-              onclick="searchGoogle()">
-              🌐 SEARCH GOOGLE
+                    onclick="googleSearch()">
+                🌐 SEARCH GOOGLE
             </button>
-        </div>`;
 
-        return;
+        </div>
+
+        `;
+
     }
-
-    result.innerHTML="";
-
-    found.forEach(q=>{
-
-        let div=document.createElement("div");
-
-        div.className="search-result";
-
-        div.innerHTML=
-            "<span class='badge'>"+q.level.toUpperCase()+"</span>"+
-            "<h3>"+q.q+"</h3>"+
-            "<p><b>Answer:</b> "+q.answer+"</p>"+
-            "<p>"+q.info+"</p>";
-
-        result.appendChild(div);
-    });
 }
 
-function searchGoogle(){
 
-    let text=document.getElementById("searchInput").value.trim();
+function showSearchAnswer(selected,correct,description){
 
-    if(!text) return;
+    const box =
+        document.getElementById("searchAnswer");
+
+    if(selected===correct){
+
+        box.innerHTML =
+        "<p class='correctText'>✅ Correct!</p>" +
+        "<p>"+escapeHTML(description)+"</p>";
+
+    }
+
+    else{
+
+        box.innerHTML =
+        "<p class='wrongText'>❌ Wrong!</p>" +
+        "<p>"+escapeHTML(description)+"</p>";
+
+    }
+}
+
+
+function googleSearch(){
+
+    const q =
+        document.getElementById("searchInput").value;
 
     window.open(
-        "https://www.google.com/search?q="+
-        encodeURIComponent(text),
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(q + " football"),
         "_blank"
     );
 }
 
+
 /* =========================================================
-   NEWS
+   FOOTBALL NEWS
    ========================================================= */
 
-function openNews(url){
-    window.open(url,"_blank");
+function openNews(){
+
+    const news =
+        "https://www.google.com/search?q=football+news&tbm=nws";
+
+    window.open(news,"_blank");
 }
+
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+function openAdmin(){
+
+    document.getElementById("adminPassword")
+        .value="";
+
+    showScreen("adminLoginScreen");
+}
+
+
+/*
+   IMPORTANT:
+   Change this password before publishing.
+*/
+
+const ADMIN_PASSWORD="1234";
+
+
+function loginAdmin(){
+
+    const password =
+        document.getElementById("adminPassword")
+        .value;
+
+    if(password === ADMIN_PASSWORD){
+
+        showScreen("adminScreen");
+
+    }
+
+    else{
+
+        alert("Incorrect admin password.");
+
+    }
+}
+
+
+/* =========================================================
+   ADD QUESTION
+   ========================================================= */
+
+function addQuestion(){
+
+    const question =
+        document.getElementById("newQuestion")
+        .value
+        .trim();
+
+    const options=[
+        document.getElementById("option1").value.trim(),
+        document.getElementById("option2").value.trim(),
+        document.getElementById("option3").value.trim(),
+        document.getElementById("option4").value.trim()
+    ];
+
+    const answer =
+        parseInt(
+            document.getElementById("correctAnswer").value
+        );
+
+    const difficulty =
+        document.getElementById("newDifficulty").value;
+
+    const description =
+        document.getElementById("newDescription")
+        .value
+        .trim();
+
+    if(!question ||
+       options.some(o=>!o) ||
+       !description){
+
+        alert(
+            "Please fill in every field."
+        );
+
+        return;
+    }
+
+    const custom =
+        getCustomQuestions();
+
+    custom.push({
+
+        question:question,
+        options:options,
+        answer:answer,
+        difficulty:difficulty,
+        description:description
+
+    });
+
+    localStorage.setItem(
+        "footballTriviaQuestions",
+        JSON.stringify(custom)
+    );
+
+    alert(
+        "✅ Question added successfully!"
+    );
+
+    document.getElementById("newQuestion").value="";
+    document.getElementById("option1").value="";
+    document.getElementById("option2").value="";
+    document.getElementById("option3").value="";
+    document.getElementById("option4").value="";
+    document.getElementById("newDescription").value="";
+}
+
+
+/* =========================================================
+   DELETE CUSTOM QUESTIONS
+   ========================================================= */
+
+function clearCustomQuestions(){
+
+    const confirmDelete =
+        confirm(
+            "Delete all questions added by the maker?"
+        );
+
+    if(!confirmDelete) return;
+
+    localStorage.removeItem(
+        "footballTriviaQuestions"
+    );
+
+    alert(
+        "Your added questions have been deleted."
+    );
+}
+
+
+/* =========================================================
+   MULTIPLAYER
+   ========================================================= */
+
+function openMultiplayer(){
+
+    showScreen("multiplayerScreen");
+
+}
+
 
 /* =========================================================
    MUSIC
    ========================================================= */
 
-let musicOn=false;
+let musicPlaying=false;
 
 function toggleMusic(){
 
-    let music=document.getElementById("music");
+    const music =
+        document.getElementById("backgroundMusic");
 
-    if(!musicOn){
+    if(!musicPlaying){
 
-        music.play().then(()=>{
+        music.play()
+        .then(()=>{
 
-            musicOn=true;
+            musicPlaying=true;
 
-            document.getElementById("musicStatus").textContent="ON";
+            document.getElementById("musicStatus")
+                .textContent="ON";
 
-        }).catch(()=>{
+        })
+        .catch(()=>{
 
             alert(
-                "Music could not start. Make sure football_music.mp3 "+
-                "is uploaded to the same GitHub folder as index.html."
+                "Tap the button again to allow music."
             );
 
         });
 
-    }else{
+    }
+
+    else{
 
         music.pause();
 
-        musicOn=false;
+        musicPlaying=false;
 
-        document.getElementById("musicStatus").textContent="OFF";
+        document.getElementById("musicStatus")
+            .textContent="OFF";
+
     }
 }
+
 
 /* =========================================================
-   SAVE PLAYER NAME
+   SECURITY / HTML HELPERS
    ========================================================= */
 
-document.getElementById("playerName").addEventListener(
-    "input",
-    function(){
-        localStorage.setItem("footballTriviaName",this.value);
-    }
-);
+function escapeHTML(text){
 
-let savedName=localStorage.getItem("footballTriviaName");
-
-if(savedName){
-    document.getElementById("playerName").value=savedName;
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
+
+function escapeAttribute(text){
+
+    return String(text)
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/"/g,"&quot;")
+        .replace(/\n/g," ");
+}
+
+
+/* =========================================================
+   STARTUP
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    showScreen("homeScreen");
+
+});
 
 </script>
 
 </body>
-      </html>
+    </html>
